@@ -5,16 +5,18 @@ import com.neo.e_com.dto.ProductDto;
 import com.neo.e_com.entity.Product;
 import com.neo.e_com.mapper.ProductMapper;
 import com.neo.e_com.service.ProductService;
-import lombok.Getter;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/product")
+@Tag(name = "Product APIs" , description = "Operations related to products")
 public class ProductController {
 
     private final ProductService productService;
@@ -24,17 +26,26 @@ public class ProductController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "get all products")
     public ResponseEntity<List<Product>> getProducts(){
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/add")
+    @Operation(summary = "add product")
     public ResponseEntity<String> addProduct(
-            @Validated @RequestBody ProductDto productDto){
+            @Valid @RequestBody ProductDto productDto){
 
             Product product = ProductMapper.toProduct(productDto);
 
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "get product by id")
+    public ResponseEntity<ProductDto> getProductById(@RequestParam("id") Long id){
+        ProductDto productDto = productService.getProductById(id);
+        return new ResponseEntity<>(productDto,HttpStatus.OK);
     }
 
 }
