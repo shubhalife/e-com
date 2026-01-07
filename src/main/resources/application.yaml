@@ -1,0 +1,42 @@
+server:
+  port: 7781
+
+spring:
+  application:
+    name: e-com
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/e-com?currentSchema=ecommerce
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      pool-name: HikariCP
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # change to validate in prod
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: ecommerce
+        jdbc:
+          time_zone: UTC
+
+  sql:
+    init:
+      mode: never   # set to always if using schema.sql / data.sql
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
