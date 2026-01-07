@@ -1,6 +1,10 @@
 server:
   port: 7781
 
+  servlet:
+    context-path: /e-com
+
+
 spring:
   application:
     name: e-com

@@ -9,11 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Product extends EntityAudit{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
 
     private String name;
 
