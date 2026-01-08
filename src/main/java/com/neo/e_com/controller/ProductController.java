@@ -36,9 +36,8 @@ public class ProductController {
     public ResponseEntity<String> addProduct(
             @Valid @RequestBody ProductDto productDto){
 
-            Product product = ProductMapper.toProduct(productDto);
 
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
+        return new ResponseEntity<>(productService.addProduct(productDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -47,6 +46,14 @@ public class ProductController {
         ProductDto productDto = productService.getProductById(id);
         return new ResponseEntity<>(productDto,HttpStatus.OK);
     }
+
+    @PostMapping("/bulkUpload")
+    @Operation(summary = "bulk upload of Product")
+    public ResponseEntity<String> bulkUploadProduct(@RequestBody List<ProductDto> productDtos){
+
+        return new ResponseEntity<>(productService.bulkUploadProduct(productDtos),HttpStatus.CREATED);
+    }
+
 
 
 }

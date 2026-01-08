@@ -17,4 +17,6 @@ public class ProductDto {
     @NotBlank(message = "Product name is mandatory")
     private String name;
 
+    private Long category_id;
+
 }

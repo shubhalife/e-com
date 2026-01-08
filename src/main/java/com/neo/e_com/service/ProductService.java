@@ -9,7 +9,9 @@ public interface ProductService {
 
     List<Product> getProducts();
 
-    String addProduct(Product product);
+    String addProduct(ProductDto productDto);
 
     ProductDto getProductById(Long id);
+
+    String bulkUploadProduct(List<ProductDto> productDtos);
 }
