@@ -28,7 +28,7 @@ public class ProductController {
     @GetMapping("/all")
     @Operation(summary = "get all products")
     public ResponseEntity<List<Product>> getProducts(){
-        return new ResponseEntity<>(productService.getProducts(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productService.getProducts(), HttpStatus.FOUND);
     }
 
     @PostMapping("/add")
@@ -44,7 +44,7 @@ public class ProductController {
     @Operation(summary = "get product by id")
     public ResponseEntity<ProductDto> getProductById(@RequestParam("id") Long id){
         ProductDto productDto = productService.getProductById(id);
-        return new ResponseEntity<>(productDto,HttpStatus.OK);
+        return new ResponseEntity<>(productDto,HttpStatus.FOUND);
     }
 
     @PostMapping("/bulkUpload")

@@ -5,7 +5,7 @@ import com.neo.e_com.entity.Category;
 import com.neo.e_com.entity.Product;
 import com.neo.e_com.exception.ResourceNotFoundException;
 import com.neo.e_com.mapper.ProductMapper;
-import com.neo.e_com.repository.CategoryRespository;
+import com.neo.e_com.repository.CategoryRepository;
 import com.neo.e_com.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService{
 
     ProductRepository productRepository;
-    CategoryRespository categoryRespository;
+    CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRespository categoryRespository){
+    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository){
         this.productRepository=productRepository;
-        this.categoryRespository=categoryRespository;
+        this.categoryRepository=categoryRepository;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService{
         //get category id
         //get category
         //add category to product and save product
-        Category category = categoryRespository.findById(productDto.getCategory_id())
+        Category category = categoryRepository.findById(productDto.getCategory_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
         Product product = ProductMapper.toProduct(productDto,category);
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService{
         productDtos.forEach(productDto -> products.
                 add(ProductMapper
                         .toProduct(productDto,
-                                categoryRespository
+                                categoryRepository
                                         .findById(productDto
                                                 .getCategory_id())
                                         .orElseThrow(()-> new ResourceNotFoundException("Category Not found")))));
