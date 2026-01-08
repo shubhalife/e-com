@@ -55,20 +55,27 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public String bulkUploadProduct(List<ProductDto> productDtos) {
 
-       /* List<Product> products = new LinkedList<>();
+        //get category_id of individual product
+        //get list of category
+        //add category to product
+        //save product list
 
+        List<Product> products = new LinkedList<>();
 
-        productDtos.forEach(productDto -> products.add(ProductMapper.toProduct(productDto,)));
+        productDtos.forEach(productDto -> products.
+                add(ProductMapper
+                        .toProduct(productDto,
+                                categoryRespository
+                                        .findById(productDto
+                                                .getCategory_id())
+                                        .orElseThrow(()-> new ResourceNotFoundException("Category Not found")))));
 
-
-       List<Product> productList = productRepository.saveAll(products);
+        List<Product> productList = productRepository.saveAll(products);
 
        StringBuilder Ids = new StringBuilder("Products added with ids: ");
 
        productList.forEach(product -> Ids.append(product.getId()).append(" "));
         return Ids.toString() ;
 
-        */
-        return "";
     }
 }
